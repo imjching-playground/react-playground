@@ -28,8 +28,15 @@ class Demo extends Component {
 
   render() {
     console.log(this.props.name, 'render');
+    // this demonstrates that state is non persistent
+    // it will reset when component rerenders
+    // use a store in flux if persistent data is needed
     return (
-      <div>{this.props.name}: {this.props.now}</div>
+      <div>
+        {this.state.foo ? "true" : "false"}
+        <button onClick={() => {this.setState({foo:!this.state.foo})}}>change me!</button>
+        <div>{this.props.name}: {this.props.now}</div>
+      </div>
     );
   }
 
@@ -79,7 +86,6 @@ class App extends Component {
     this.changeStuff = this.changeStuff.bind(this);
     this.killStuff = this.killStuff.bind(this);
     this.unKillStuff = this.unKillStuff.bind(this);
-    // console.log(this.setStateWithConsoleGroup);
   }
 
   setStateWithConsoleGroup(state) {
