@@ -137,6 +137,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-ReactDOM.render(<Game />, document.getElementById('root'));
+// ReactDOM.render(<Game />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root2'));
 // ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
