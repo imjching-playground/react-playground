@@ -1,0 +1,3 @@
+[submodule "react-flux-angular"]
+	path = react-flux-angular
+	url = git@github.com:imjching/react-flux-angular.git
