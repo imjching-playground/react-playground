@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class App extends Component {
 
   static propTypes = {
     value: PropTypes.number.isRequired,
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired
+
+  }
+
+  onIncrement = () => {
+    console.log('dispatch');
+    this.props.dispatch({ type: 'INCREMENT' })
+  }
+
+  onDecrement = () => {
+    this.props.dispatch({ type: 'DECREMENT' })
   }
 
   incrementIfOdd = () => {
@@ -15,19 +25,29 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('mount');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps)
+
+  }
+
   incrementAsync = () => {
-    setTimeout(this.props.onIncrement, 1000);
+    setTimeout(this.onIncrement, 1000);
   }
 
   render() {
-    const { value, onIncrement, onDecrement } = this.props;
+    console.log(this.props);
+    const { value } = this.props;
 
     return (
       <div>
         <p>
           Clicked: <span>{value}</span> times
-          <button onClick={onIncrement}>+</button>
-          <button onClick={onDecrement}>-</button>
+          <button onClick={this.onIncrement}>+</button>
+          <button onClick={this.onDecrement}>-</button>
           <button onClick={this.incrementIfOdd}>Increment if odd</button>
           <button onClick={this.incrementAsync}>Increment async</button>
         </p>
@@ -36,4 +56,15 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  const value = state;
+  return { value }
+}
+
+// const mapDispatchToProps = (dispatch) => ({
+//   // onIncrement: () => dispatch({ type: 'INCREMENT' }),
+//   // onDecrement: () => dispatch({ type: 'DECREMENT' })
+//   dispatch: dispatch
+// })
+
+export default connect(mapStateToProps)(App);
